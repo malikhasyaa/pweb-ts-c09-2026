@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambil Antrian - Antrian Rumah Sakit</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="dist/ambil-antrian.js" type="module" defer></script>
+</head>
+<body>
+    <div class="kiosk-container">
+        <h1>Ambil Antrian</h1>
+        <p>Silakan pilih jenis layanan dan tingkat prioritas Anda.</p>
+
+        <div class="priority-selector">
+            <label for="priority">Tingkat Prioritas:</label>
+            <select id="priority" class="form-group" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem;">
+                <option value="Normal">Normal</option>
+                <option value="Lansia">Lansia</option>
+                <option value="Disabilitas">Disabilitas</option>
+                <option value="VIP">VIP</option>
+            </select>
+        </div>
+
+        <div id="queueTypesGrid" class="queue-grid">
+            <!-- Dynamically populated -->
+            <p>Memuat jenis layanan...</p>
+        </div>
+    </div>
+
+    <!-- Ticket Modal -->
+    <div id="ticketModal" class="ticket-modal">
+        <div class="ticket-content">
+            <h2>Nomor Antrian Anda</h2>
+            <div id="ticketNumber" class="ticket-number">A-001</div>
+            <p id="ticketType">Poli Umum</p>
+            <p id="ticketPriority">Prioritas: Normal</p>
+            <p style="font-size: 0.8rem; color: #888; margin-top: 1rem;">Silakan tunggu nomor Anda dipanggil.</p>
+            <button id="closeModalBtn" style="margin-top: 1rem;">Selesai</button>
+        </div>
+    </div>
+</body>
+</html>
