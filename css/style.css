@@ -91,6 +91,13 @@ button:disabled {
     text-align: center;
 }
 
+#loginLoading {
+    padding: 0.75rem 0 0;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0;
+}
+
 /* Ambil Antrian Styles */
 .kiosk-container {
     width: 90%;
