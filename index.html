@@ -1,20 +1,200 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard Admin - Antrian Rumah Sakit</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="dist/index.js" type="module" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - Rumah Sakit</title>
+  
+  <!-- CSS Native (Tanpa Framework) -->
+  <style>
+    /* Reset & Base Tema Gelap */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #0b1528; /* Warna latar belakang gelap */
+      color: #e2e8f0;          /* Warna teks terang */
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background-color: #111e36;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1e293b;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+    .header-left { display: flex; align-items: center; gap: 30px; }
+    header h1 { font-size: 20px; font-weight: bold; color: #ffffff; }
+    nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 14px;
+      margin-right: 15px;
+    }
+    nav a.active { color: #ff8c00; font-weight: bold; } /* Aksen Oranye */
+    nav a:hover { color: #ffffff; }
+    .header-right { display: flex; align-items: center; gap: 15px; }
+    #user-info { font-size: 14px; color: #cbd5e1; font-weight: bold; }
+
+    /* Tombol Umum */
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-primary { background-color: #ff8c00; color: #fff; } /* Oranye Utama */
+    .btn-primary:hover { background-color: #e07b00; }
+    .btn-secondary { background-color: #334155; color: #e2e8f0; }
+    .btn-secondary:hover { background-color: #475569; }
+    .btn-danger { background-color: #ef4444; color: #fff; }
+    .btn-danger:hover { background-color: #dc2626; }
+    .btn-warning { background-color: #f59e0b; color: #fff; }
+    .btn-warning:hover { background-color: #d97706; }
+    .btn-sm { padding: 5px 10px; font-size: 12px; }
+
+    /* Layout Utama */
+    main {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Panel (Card) */
+    .panel {
+      background-color: #111e36;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+    .panel h2 { font-size: 18px; color: #ffffff; margin-bottom: 5px; }
+    .panel p { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
+    .panel h3 { font-size: 14px; color: #94a3b8; text-transform: uppercase; margin: 20px 0 10px 0; border-top: 1px solid #1e293b; padding-top: 15px;}
+
+    /* Form Inputs */
+    .form-group { display: flex; gap: 10px; margin-bottom: 20px; }
+    input, select {
+      padding: 10px;
+      border: 1px solid #334155;
+      background-color: #0f172a;
+      color: #f8fafc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, select:focus { border-color: #ff8c00; }
+    input.input-short { width: 80px; text-transform: uppercase; }
+    input.input-long { flex: 1; }
+    select { flex: 1; }
+
+    /* List Item */
+    .card-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background-color: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .queue-info .queue-title { font-weight: bold; font-size: 15px; color: #ffffff;}
+    .queue-info span { color: #ff8c00; font-size: 12px; }
+    .queue-info .queue-waiting { font-size: 12px; color: #94a3b8; margin-top: 3px; }
+    .queue-actions { display: flex; gap: 5px; }
+
+    /* Tiket List */
+    .ticket-row { background-color: #1e293b; border: none; }
+    .ticket-info .ticket-num { font-weight: bold; font-size: 15px; color: #ffffff;}
+    .ticket-info .ticket-prio {
+      background-color: #334155;
+      color: #cbd5e1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-left: 8px;
+    }
+    .ticket-status { font-weight: bold; font-size: 13px; }
+    .ticket-container { max-height: 400px; overflow-y: auto; }
+  </style>
+
+  <!-- Panggil Skrip TypeScript (Compiled JS) -->
+  <script src="dist/index.js" type="module"></script>
+
 </head>
 <body>
-    <div id="app">
-        <nav>
-            <span id="userName">Admin</span> (<span id="userRole">admin</span>)
-            <button id="logoutBtn" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
-        </nav>
-        <h1>Dashboard Admin</h1>
-        <p>Halaman ini sedang dalam pengembangan (Bagian lain kelompok).</p>
-        <a href="ambil-antrian.html">Ke Halaman Ambil Antrian</a>
+
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <h1>Dashboard Admin</h1>
+      <nav>
+        <a href="index.html" class="active">Dashboard</a>
+        <a href="operator.html">Operator</a>
+        <a href="layar.html">Layar Antrian</a>
+        <a href="ambil-antrian.html">Ambil Antrian</a>
+      </nav>
     </div>
+    
+    <div class="header-right">
+      <span id="user-info">Memuat...</span>
+      <button id="btn-reset-antrian" class="btn-danger">Reset Antrian</button>
+      <button id="btn-logout" class="btn-secondary">Keluar</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Kiri: Jenis Antrian -->
+    <div class="panel">
+      <h2>Jenis Antrian</h2>
+      <p>Kelola layanan antrian rumah sakit.</p>
+
+      <form id="form-add-queue-type" class="form-group">
+        <input type="text" id="input-code" class="input-short" placeholder="Kd (A)" maxlength="2" required>
+        <input type="text" id="input-name" class="input-long" placeholder="Nama Layanan" required>
+        <button type="submit" class="btn-primary">Tambah</button>
+      </form>
+
+      <div id="queue-types-list"></div>
+    </div>
+
+    <!-- Kanan: Terbitkan Tiket -->
+    <div class="panel">
+      <h2>Terbitkan Tiket Manual</h2>
+      <p>Cetak tiket untuk pengunjung secara manual.</p>
+
+      <form id="form-issue-ticket" class="form-group">
+        <select id="select-queue-type" required>
+          <option value="">Pilih jenis antrian</option>
+        </select>
+        <select id="select-priority" style="flex: 0.5;" required>
+          <option value="Normal">Normal</option>
+          <option value="Lansia">Lansia</option>
+          <option value="Disabilitas">Disabilitas</option>
+          <option value="VIP">VIP</option>
+        </select>
+        <button type="submit" class="btn-primary">Terbitkan</button>
+      </form>
+
+      <h3>Daftar Tiket Terbit</h3>
+      <div id="issued-tickets-list" class="ticket-container"></div>
+    </div>
+  </main>
+
 </body>
 </html>
