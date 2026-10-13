@@ -2,12 +2,56 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Layar Antrian - Antrian Rumah Sakit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layar Antrean - Rumah Sakit</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="dist/layar.js" type="module" defer></script>
 </head>
-<body>
-    <h1>Layar Antrian</h1>
-    <p>Halaman ini sedang dalam pengembangan (Bagian lain kelompok).</p>
-    <a href="ambil-antrian.html">Ke Halaman Ambil Antrian</a>
+<body class="page-body layar-theme">
+    <div class="layar-container">
+        <!-- Monitor Header -->
+        <header class="layar-header">
+            <div class="layar-brand">
+                <div class="brand-icon">🏥</div>
+                <div>
+                    <h1>Layar Antrean Pasien</h1>
+                    <p class="hospital-subtext">Rumah Sakit Umum Daerah</p>
+                </div>
+            </div>
+            
+            <div class="layar-header-right">
+                <div class="clock-box">
+                    <span id="liveClock" class="live-clock">00:00:00</span>
+                    <span class="updated-info">Diperbarui: <span id="lastUpdated">-</span></span>
+                </div>
+                <div class="layar-controls">
+                    <label class="sound-toggle-label" title="Suara panggilan pada monitor">
+                        <input type="checkbox" id="soundToggle">
+                        <span>🔊 Suara Monitor</span>
+                    </label>
+                    <button id="fullscreenBtn" class="btn btn-outline-white">⤢ Layar Penuh</button>
+                    <a href="ambil-antrian.html" class="btn btn-outline-white" target="_blank">Kiosk</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Big Highlight Banner for Latest Called Ticket -->
+        <section id="latestCallBanner" class="latest-call-banner" style="display: none;">
+            <div class="banner-badge">PANGGILAN SEKARANG</div>
+            <div class="banner-content">
+                <span id="latestTicket" class="banner-ticket">-</span>
+                <span class="banner-separator">➔</span>
+                <span id="latestService" class="banner-service">-</span>
+            </div>
+        </section>
+
+        <!-- Grid of Services -->
+        <main class="layar-main">
+            <div id="layarGrid" class="layar-grid">
+                <!-- Populated dynamically via dist/layar.js -->
+                <p class="loading-state">Memuat informasi antrean...</p>
+            </div>
+        </main>
+    </div>
 </body>
 </html>

@@ -2,12 +2,46 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Operator - Antrian Rumah Sakit</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="dist/operator.js" type="module" defer></script>
 </head>
-<body>
-    <h1>Panel Operator</h1>
-    <p>Halaman ini sedang dalam pengembangan (Bagian lain kelompok).</p>
-    <a href="login.html">Kembali ke Login</a>
+<body class="page-body">
+    <div class="page-container">
+        <!-- Top Navigation -->
+        <header class="app-navbar">
+            <div class="nav-brand">
+                <span class="brand-badge">OPERATOR</span>
+                <h2>Panel Pemanggilan Antrean</h2>
+            </div>
+            <div class="nav-user">
+                <label class="sound-toggle-label" title="Aktifkan/Nonaktifkan suara pemanggilan otomatis">
+                    <input type="checkbox" id="soundToggle" checked>
+                    <span>Suara Otomatis</span>
+                </label>
+                <div class="user-meta">
+                    <span id="operatorUserName">Operator</span>
+                    <span class="user-badge" id="operatorUserRole">user</span>
+                </div>
+                <button id="operatorLogoutBtn" class="btn btn-outline-danger">Keluar</button>
+            </div>
+        </header>
+
+        <!-- Subheader Navigation Links -->
+        <div class="quick-nav-bar">
+            <span>Tautan Cepat:</span>
+            <a href="layar.html" target="_blank" class="nav-link">Buka Layar Antrean ↗</a>
+            <a href="ambil-antrian.html" target="_blank" class="nav-link">Buka Kiosk Ambil Antrean ↗</a>
+        </div>
+
+        <!-- Main Operator Cards Grid -->
+        <main class="operator-content">
+            <div id="operatorGrid" class="operator-grid">
+                <!-- Dynamically populated via operator.js -->
+                <p class="loading-state">Memuat antrean...</p>
+            </div>
+        </main>
+    </div>
 </body>
 </html>

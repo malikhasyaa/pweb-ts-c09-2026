@@ -8,9 +8,10 @@ halaman HTML di root, style di `css/style.css`, data di `localStorage`. Auth mem
 - `login.html` → `src/login.ts` → `dist/login.js` (login + redirect berdasar role)
 - `ambil-antrian.html` (kiosk) → `src/ambil-antrian.ts` (seed poli A/B/C, tiket `A-001`, modal, polling 3 dtk)
 - `index.html` (dashboard admin, placeholder) → `src/index.ts` (cek session + logout)
-- `operator.html`, `layar.html` → placeholder, tanggung jawab anggota lain, JANGAN diubah tanpa konfirmasi
-- `src/types.ts`, `src/utils/storage.ts` (wrapper `localStorage`: `hospital_session`, `hospital_queue_types`, `hospital_tickets`)
-- `css/style.css` — style login + kiosk
+- `operator.html` (panel operator) → `src/operator.ts` → `dist/operator.js` (auth guard, sortir prioritas VIP > Disabilitas > Lansia > Normal, panggil/lewati/selesai/ulang, Web Speech API)
+- `layar.html` (monitor antrean) → `src/layar.ts` → `dist/layar.js` (monitor publik, jam digital, polling 2 dtk, Fullscreen API, banner highlight panggilan, audio monitor)
+- `src/types.ts`, `src/utils/storage.ts` (wrapper `localStorage`: `hospital_session`, `hospital_queue_types`, `hospital_tickets`), `src/utils/priority.ts`, `src/utils/speech.ts`
+- `css/style.css` — style login, kiosk, operator, dan layar monitor
 
 ## Perintah
 - `npm run build` — compile TS ke `dist/` (wajib sebelum uji browser)
@@ -39,6 +40,8 @@ halaman HTML di root, style di `css/style.css`, data di `localStorage`. Auth mem
 5. `login.ts` ambil role via `/auth/me`
 6. `ambil-antrian.ts` helper `getRequiredElement` (guard null)
 7. Hapus `src/audit.ts` + `dist/audit.*` (file dummy tak terpakai)
+8. Implementasi Halaman Operator (`operator.html`, `src/operator.ts`), sorting prioritas (`src/utils/priority.ts`), dan aksi panggil/lewati/selesai
+9. Implementasi Layar Antrean publik (`layar.html`, `src/layar.ts`), jam digital, polling 2 dtk, Fullscreen API, banner highlight, dan audio speech (`src/utils/speech.ts`)
 
 ## Batasan
 - Jangan membuat ulang project, menghapus fitur, atau merombak struktur tanpa konfirmasi
